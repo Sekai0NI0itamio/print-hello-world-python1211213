@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "strict": false,
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["./src/*"],
+      "@ant/claude-for-chrome-mcp": ["./src/utils/claudeInChrome/mock-mcp.ts"]
+    }
+  }
+}
