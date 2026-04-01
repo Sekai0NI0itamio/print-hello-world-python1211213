@@ -1,0 +1,35 @@
+name: Build for Apple Silicon (macOS ARM64)
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install Dependencies
+        run: bun install
+
+      - name: Bundle into Standalone Executable
+        run: |
+          bun build ./src/entrypoints/cli.tsx \
+            --compile \
+            --target=bun-darwin-arm64 \
+            --outfile=claude-code
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: claude-code-mac-silicon
+          path: claude-code
